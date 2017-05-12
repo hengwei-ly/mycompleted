@@ -1,0 +1,49 @@
+name: AuthAccount
+table: tpt_auth_accounts
+index_label: 用户管理
+new_label: 新建用户
+edit_label: 编辑用户
+fields:
+- name: id
+  description: ID
+  label: ID
+  type: biginteger
+  required: true
+  readonly: true
+  unique: true
+- name: name
+  description: 用户名
+  label: 用户名
+  type: string
+  required: true
+  readonly: true
+  unique: true
+  restrictions:
+    minlength: 2
+    maxlength: 250
+- name: password
+  description: 密码
+  label: 密码
+  type: password
+  restrictions:
+    minlength: 8
+    maxlength: 250
+- name: description
+  description: 描述
+  label: 描述
+  type: string
+  restrictions:
+    maxlength: 2000
+- name: created_at
+  description: 创建时间
+  label: 创建时间
+  type: datetime
+  readonly: true
+  annotations:
+    editDisabled: true
+- name: updated_at
+  description: 修改时间
+  label: 修改时间
+  type: datetime
+  annotations:
+    editDisabled: true

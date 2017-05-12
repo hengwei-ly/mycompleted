@@ -1,0 +1,22 @@
+{{set . "title" "新建OnlineUsers"}}
+{{append . "moreStyles" "/public/css/form.css"}}
+{{append . "moreScripts" "/self/public/js/online_users/online_users.js"}}
+{{template "header.html" .}}
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        新建OnlineUser
+        <div class="ibox-tools"></div>
+    </div>
+    <div class="ibox-content">
+        <form action="{{url "OnlineUsers.Create" }}" method="POST" class="form-horizontal" id="online_users-insert">        
+        {{template "OnlineUsers/edit_fields.html" .}}
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-info controls">新建</button>
+                <a href="{{url "OnlineUsers.Index" }}" class="btn btn-info controls">取消</a>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{{template "footer.html" .}}

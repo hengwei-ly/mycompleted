@@ -1,0 +1,56 @@
+{{$raw := .}}{{set . "title" "OnlineUsers"}}
+{{if eq .RunMode "dev"}}
+{{append . "moreScripts" "/public/js/plugins/bootbox/bootbox.js"}}
+{{else}}
+{{append . "moreScripts" "/public/js/plugins/bootbox/bootbox.min.js"}}
+{{end}}
+{{append . "moreScripts" "/self/public/js/online_users/online_users.js"}}
+{{template "header.html" .}}
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        OnlineUser
+        <div class="ibox-tools"></div>
+    </div>
+    <div class="ibox-content">
+
+    {{template "OnlineUsers/quick-bar.html" .}}
+    <table class="table table-bordered table-striped table-highlight ">
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="online_users-all-checker"></th>
+        <th><nobr>用户名</nobr></th>
+        <th><nobr>auth_account_id</nobr></th>
+        <th><nobr>用户 IP 地址</nobr></th>
+        <th><nobr>用户 MAC 地址</nobr></th>
+        <th><nobr>登录时间</nobr></th>
+        {{if current_user_has_write_permission $raw "online_users"}}<th>操作</th>{{end}}
+      </tr>
+      </thead>
+      {{range $v := .onlineUsers}}
+      <tr>
+        <td><input type="checkbox" class="online_users-row-checker" key="{{$v.ID}}" url="{{url "OnlineUsers.Edit" $v.ID}}"></td>
+        
+        <td>{{$v.Name}}</td>
+        <td>{{$v.AuthAccountID}}</td>
+        <td>{{$v.Ipaddress}}</td>
+        <td>{{$v.Macaddress}}</td>
+        <td>{{$v.CreatedAt}}</td>
+        {{if current_user_has_write_permission $raw "online_users"}}<td>
+          {{if current_user_has_edit_permission $raw "online_users"}}<a href='{{url "OnlineUsers.Edit" $v.ID}}'>编辑</a>{{end}}
+          {{if current_user_has_del_permission $raw "online_users"}}<form id='online_users-delete-{{$v.ID}}' action="{{url "OnlineUsers.Delete" $v.ID}}" method="POST" class="form-horizontal" style='display:inline;'>
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="id" value="{{$v.ID}}">
+              <a href="javascript:document.getElementById('online_users-delete-{{$v.ID}}').submit()">
+                <i class="icon-search"></i> 删除
+              </a>
+            </form>{{end}}
+        </td>{{end}}
+      </tr>
+      {{end}}
+    </table>
+    {{template "paginator.html" .}}
+    </div>
+</div>
+
+{{template "footer.html" .}}

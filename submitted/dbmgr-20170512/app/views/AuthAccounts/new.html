@@ -1,0 +1,22 @@
+{{set . "title" "新建AuthAccounts"}}
+{{append . "moreStyles" "/public/css/form.css"}}
+{{append . "moreScripts" "/self/public/js/auth_accounts/auth_accounts.js"}}
+{{template "header.html" .}}
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        新建用户
+        <div class="ibox-tools"></div>
+    </div>
+    <div class="ibox-content">
+        <form action="{{url "AuthAccounts.Create" }}" method="POST" class="form-horizontal" id="auth_accounts-insert">        
+        {{template "AuthAccounts/edit_fields.html" .}}
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-info controls">新建</button>
+                <a href="{{url "AuthAccounts.Index" }}" class="btn btn-info controls">取消</a>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{{template "footer.html" .}}
