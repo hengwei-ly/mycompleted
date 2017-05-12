@@ -1,0 +1,56 @@
+{{$raw := .}}{{set . "title" "Employees"}}
+{{if eq .RunMode "dev"}}
+{{append . "moreScripts" "/public/js/plugins/bootbox/bootbox.js"}}
+{{else}}
+{{append . "moreScripts" "/public/js/plugins/bootbox/bootbox.min.js"}}
+{{end}}
+{{append . "moreScripts" "/self/public/js/employees/employees.js"}}
+{{template "header.html" .}}
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        员工信息管理
+        <div class="ibox-tools"></div>
+    </div>
+    <div class="ibox-content">
+
+    {{template "Employees/quick-bar.html" .}}
+    <table class="table table-bordered table-striped table-highlight ">
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="employees-all-checker"></th>
+        <th><nobr>姓名</nobr></th>
+        <th><nobr>年龄</nobr></th>
+        <th><nobr>职位</nobr></th>
+        <th><nobr>邮箱</nobr></th>
+        <th><nobr>入职日期</nobr></th>
+        {{if current_user_has_write_permission $raw "employees"}}<th>操作</th>{{end}}
+      </tr>
+      </thead>
+      {{range $v := .employees}}
+      <tr>
+        <td><input type="checkbox" class="employees-row-checker" key="{{$v.ID}}" url="{{url "Employees.Edit" $v.ID}}"></td>
+        
+        <td>{{$v.Name}}</td>
+        <td>{{$v.Age}}</td>
+        <td>{{$v.Job}}</td>
+        <td>{{$v.Email}}</td>
+        <td>{{$v.CreatedAt}}</td>
+        {{if current_user_has_write_permission $raw "employees"}}<td>
+          {{if current_user_has_edit_permission $raw "employees"}}<a href='{{url "Employees.Edit" $v.ID}}'>编辑</a>{{end}}
+          {{if current_user_has_del_permission $raw "employees"}}<form id='employees-delete-{{$v.ID}}' action="{{url "Employees.Delete" $v.ID}}" method="POST" class="form-horizontal" style='display:inline;'>
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="id" value="{{$v.ID}}">
+              <a href="javascript:document.getElementById('employees-delete-{{$v.ID}}').submit()">
+                <i class="icon-search"></i> 删除
+              </a>
+            </form>{{end}}
+        </td>{{end}}
+      </tr>
+      {{end}}
+    </table>
+    {{template "paginator.html" .}}
+    </div>
+</div>
+
+{{template "footer.html" .}}

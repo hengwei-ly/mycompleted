@@ -1,0 +1,42 @@
+name: OnlineUser
+table: tpt_online_users
+fields:
+- name: id
+  description: ID
+  label: ID
+  type: biginteger
+  required: true
+  readonly: true
+  unique: true
+- name: name
+  description: 用户名
+  label: 用户名
+  type: string
+  required: true
+  readonly: true
+  unique: true
+  restrictions:
+    minlength: 2
+    maxlength: 250
+- name: auth_account_id
+  type: objectID
+  required: true
+- name: ipaddress
+  description: 用户 IP 地址
+  label: 用户 IP 地址
+  type: string
+  restrictions:
+    maxlength: 200
+- name: macaddress
+  description: 用户 MAC 地址
+  label: 用户 MAC 地址
+  type: string
+  restrictions:
+    maxlength: 200
+- name: created_at
+  description: 登录时间
+  label: 登录时间
+  type: datetime
+  readonly: true
+  annotations:
+    editDisabled: true

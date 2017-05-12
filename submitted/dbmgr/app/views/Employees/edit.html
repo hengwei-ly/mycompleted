@@ -1,0 +1,23 @@
+{{set . "title" "编辑Employees"}}
+{{append . "moreScripts" "/self/public/js/employees/employees.js"}}
+{{template "header.html" .}}
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        编辑员工
+        <div class="ibox-tools"></div>
+    </div>
+    <div class="ibox-content">
+        <form action="{{url "Employees.Update" }}" method="POST" class="form-horizontal" id="employees-edit">
+        <input type="hidden" name="_method" value="PUT">
+        {{hidden_field . "employee.ID" | render}}
+        {{template "Employees/edit_fields.html" .}}
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-info controls">修改</button>
+                <a href="{{url "Employees.Index" }}" class="btn btn-info controls">取消</a>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{{template "footer.html" .}}

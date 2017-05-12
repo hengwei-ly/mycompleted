@@ -1,0 +1,73 @@
+{{$raw := .}}{{set . "title" "Alertings"}}
+{{if eq .RunMode "dev"}}
+{{append . "moreScripts" "/public/js/plugins/bootbox/bootbox.js"}}
+{{else}}
+{{append . "moreScripts" "/public/js/plugins/bootbox/bootbox.min.js"}}
+{{end}}
+{{append . "moreScripts" "/self/public/js/dev_table/dev_tables.js"}}
+{{template "header.html" .}}
+
+{{ .flash.error }}
+
+
+<div class="ibox float-e-margins">
+  <div class="ibox-title">
+    告警信息管理
+    <div class="ibox-tools"></div>
+  </div>
+  <div class="ibox-content">
+
+    {{template "DevTables/quick-bar.html" .}}
+{{ $x := .tab.Tabname }}
+<div class="tabs-container">
+  <ul class="nav nav-tabs" style="font-size: 16px;" id="devTables">
+    <li class="{{if eq "alerts" $x }}active{{end}} " ><a data-toggle="tab" href="#alerts"  id="tab_alerts">告警信息</a></li>
+    <li class=" {{if eq "traps" $x }}active{{end}}"><a data-toggle="tab" href="#traps"  id="tab_traps">traps</a></li>
+    <li class=" {{if eq "histories" $x }}active{{end}}" ><a data-toggle="tab" href="#histories"  id="tab_histories">历史信息</a></li>
+    <li class=" {{if eq "syslogs" $x }}active{{end}}" ><a data-toggle="tab" href="#syslogs"  id="tab_syslogs">系统日志</a></li>
+  </ul>
+  <div class="tab-content">
+    {{ range $key, $val := .tab.Datas }}
+    <div id={{ $key }}  class="tab-pane {{if eq $key $x }}active{{end}}">
+      <div class="ibox-content" style= "display: block;">
+        <table class="table">
+          <thead>
+          <tr>
+            <th><input type="checkbox" id="dev_tables-all-checker-{{ $key }}"></th>
+            <th colspan="2" width="45%">日期</th>
+            <th width="30%">占用空间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody id="list_alertings">
+          <!-- 存放告警信息列表 -->
+          {{ range $k,$v := $val }}
+          <tr>
+            <td><input type="checkbox" class="dev_tables-row-checker-{{ $key }}" key="{{$v.Name}}"  url="{{url "DevTables.DeleteByNames" $v.Name $key}}"></td>
+
+            <td>{{ $v.DateName }}</td>
+            <td>{{ if eq $v.Type "M" }}  月度记录 {{ else if eq $v.Type "D" }} 每日记录 {{ end }}</td>
+            <td>{{ $v.Size }}</td>
+            <td>
+              <form action="{{url "DevTables.DeleteByName" }}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+              <input type="hidden" value="{{ $v.Name }}" name="name">
+              <input type="hidden" value="{{ $key }}" name="page" id="thisPage">
+                <input class ="list_delete" type="submit" value="删除">
+              </form>
+            </td>
+          </tr>
+          {{ end }}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    {{ end }}
+  </div>
+</div>
+  </div>
+</div>
+
+{{template "footer.html" .}}

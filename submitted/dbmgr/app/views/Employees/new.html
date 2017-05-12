@@ -1,0 +1,22 @@
+{{set . "title" "新建Employees"}}
+{{append . "moreStyles" "/public/css/form.css"}}
+{{append . "moreScripts" "/self/public/js/employees/employees.js"}}
+{{template "header.html" .}}
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        新建用户
+        <div class="ibox-tools"></div>
+    </div>
+    <div class="ibox-content">
+        <form action="{{url "Employees.Create" }}" method="POST" class="form-horizontal" id="employees-insert">        
+        {{template "Employees/edit_fields.html" .}}
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-info controls">新建</button>
+                <a href="{{url "Employees.Index" }}" class="btn btn-info controls">取消</a>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+{{template "footer.html" .}}

@@ -1,0 +1,46 @@
+name: Employee
+table: tpt_employees
+index_label: 员工管理
+new_label: 新建员工
+edit_label: 编辑员工
+fields:
+- name: id
+  description: ID
+  label: ID
+  type: biginteger
+  required: true
+  readonly: true
+  unique: true
+- name: name
+  description: 姓名
+  label: 姓名
+  type: string
+  required: true
+  readonly: true
+  unique: true
+  restrictions:
+    minlength: 2
+    maxlength: 250
+
+- name: age
+  description: 年龄
+  label: 年龄
+  type: int
+
+- name: job
+  description: 职位
+  label: 职位
+  type: string
+
+- name: email
+  description: 邮箱
+  label: 邮箱
+  type: emial
+
+- name: created_at
+  description: 创建时间
+  label: 创建时间
+  type: datetime
+  readonly: true
+  annotations:
+    editDisabled: true

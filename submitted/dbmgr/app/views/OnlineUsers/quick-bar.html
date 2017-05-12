@@ -1,0 +1,26 @@
+<div class="quick-actions btn-group m-b">
+    {{if current_user_has_new_permission . "online_users"}}<a id='online_users-new' href='{{url "OnlineUsers.New"}}'  class="btn btn-outline btn-default" method="" mode="*" confirm="" client="false" target="_self">
+        <i class="fa fa-add"></i>添加
+    </a>{{end}}
+    {{if current_user_has_edit_permission . "online_users"}}<a id='online_users-edit' href='' url='{{url "OnlineUsers.Edit"}}'  class="btn btn-outline btn-default" method="" mode="1" confirm="" client="false" target="_self">
+        <i class="fa fa-edit"></i>编辑
+    </a>{{end}}
+    {{if current_user_has_del_permission . "online_users"}}<a id='online_users-delete' href='' url='{{url "OnlineUsers.DeleteByIDs"}}'  class="btn btn-outline btn-default" mode="+" target="_self">
+        <i class="fa fa-trash"></i> 删除
+    </a>{{end}}
+</div>
+    <!--
+    <ul class="quick-actions ">
+        <form action="" method="get" class="form-action" id="online_users-quick-form" >
+            <li>
+                <label>
+                    <span>名称</span><input type="text" name="name">
+                </label>
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('online_users-quick-form').submit()" class="grid-action" method="" mode="*">
+                    <i class="icon-search"></i> 查询
+                </a>
+            </li>
+        </form>
+    </ul>-->

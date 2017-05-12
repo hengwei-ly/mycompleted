@@ -1,0 +1,9 @@
+- table: 'tpt_online_users'
+  pk:
+    id: 'PK_GENERATE(online_user_key)'
+  fields:
+    name: gr5
+    auth_account_id: abc
+    ipaddress: Dolorem in est rem numquam esse reprehenderit.
+    macaddress: Voluptas velit at non eum.
+    created_at: 1996-05-28T10:35:05+08:00

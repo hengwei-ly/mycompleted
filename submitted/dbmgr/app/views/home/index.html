@@ -1,0 +1,82 @@
+{{set . "title" "Home"}}
+
+{{append . "moreScripts" "plugins/chartJs/Chart.min.js"}}
+{{append . "moreScripts" "home/index.js"}}
+
+{{template "header.html" .}}
+
+<div class="full-height">
+  <div class="full-height-scroll content border-left">
+    <div class="row">
+      <div class="col-lg-6">
+        {{template "share/ibox/basic_header.html" args | arg "title" "资产一览"}}
+        <table class="table">
+          <thead>
+          <tr>
+            <th colspan="2">IT资产</th>
+            <th colspan="2">非IT资产</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>工作站</td>
+            <td style="text-align: right;">1</td>
+            <td>鼠标</td>
+            <td style="text-align: right;">0</td>
+          </tr>
+          <tr>
+            <td>打印机</td>
+            <td style="text-align: right;">0</td>
+            <td>扫描仪</td>
+            <td style="text-align: right;">0</td>
+          </tr>
+          <tr>
+            <td>路由器</td>
+            <td style="text-align: right;">1</td>
+            <td>交换机端口</td>
+            <td style="text-align: right;">0</td>
+          </tr>
+          <tr>
+            <td>服务器</td>
+            <td style="text-align: right;">1</td>
+            <td>投影仪</td>
+            <td style="text-align: right;">0</td>
+          </tr>
+          <tr>
+            <td>其它</td>
+            <td style="text-align: right;">1</td>
+            <td>其它</td>
+            <td style="text-align: right;">0</td>
+          </tr>
+          </tbody>
+        </table>
+        {{template "share/ibox/basic_footer.html" .}}
+      </div>
+      <div class="col-lg-6">
+        {{template "share/ibox/basic_header.html" args | arg "title" "工作站统计"}}
+        <div>
+          <canvas id="wsChart" height="150"></canvas>
+        </div>
+        {{template "share/ibox/basic_footer.html" .}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        {{template "share/ibox/basic_header.html" args | arg "title" "软件统计"}}
+        <div>
+          <canvas id="swChart" height="150"></canvas>
+        </div>
+        {{template "share/ibox/basic_footer.html" .}}
+      </div>
+      <div class="col-lg-6">
+        {{template "share/ibox/basic_header.html" args | arg "title" "合同统计"}}
+        <div>
+          <canvas id="contractChart" height="150"></canvas>
+        </div>
+        {{template "share/ibox/basic_footer.html" .}}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{template "footer.html" .}}

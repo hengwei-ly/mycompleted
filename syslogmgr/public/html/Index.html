@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Syslogs</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+  <link href="css/plugins/jqGrid/ui.jqgrid-bootstrap.css" rel="stylesheet">
+  <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+  <link href="css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+  <link href="css/animate.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style_ext.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/plugins/footable/footable.core.css">
+</head>
+<body class="fixed-sidebar no-skin-config full-height-layout  pace-done">
+</body>
+
+<script id="body" type="text/template">
+
+  <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+      <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+          <li class="nav-header">
+            <div class="dropdown profile-element">
+          <span>
+              <image class="brand" src="img/logo.png"/>
+          </span>
+            </div>
+            <div class="logo-element">
+              <image style="width:40px;height:40px;" src="img/logo.png"/>
+            </div>
+          </li>
+          <li class="">
+            <a href="home"><i class="fa fa-home"></i> <span class="nav-label">主页</span></a>
+          </li>
+          <li class="">
+            <a href="#"><i class="fa fa-qrcode"></i> <span class="nav-label">Radius</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li class="">
+                <a href="OnlineUsers/Index">在线用户</a>
+              </li>
+              <li class="">
+                <a href="AuthAccounts/Index">用户管理</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-floppy-o"></i> <span class="nav-label">日志管理</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li>
+                <a href="#">查看</a>
+              </li>
+              <li>
+                <a href="#">主机列表</a>
+              </li>
+              <li>
+                <a href="#">设置</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-area-chart"></i> <span class="nav-label">报表</span></a>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+    <div id="page-wrapper" class="gray-bg">
+      <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+          <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+              <div class="form-group">
+                <input type="text" placeholder="Search for something..." class="form-control" name="top-search"
+                       id="top-search">
+              </div>
+            </form>
+          </div>
+          <ul class="nav navbar-top-links navbar-right">
+            <li>
+              <span class="m-r-sm text-muted welcome-message"></span>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+              </a>
+              <ul class="dropdown-menu dropdown-messages">
+                <li>
+                  <div class="dropdown-messages-box">
+                    <a href="profile.html" class="pull-left">
+
+                    </a>
+                    <div class="media-body">
+                      <small class="pull-right">46h ago</small>
+                      <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                      <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                    </div>
+                  </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <div class="dropdown-messages-box">
+                    <a href="profile.html" class="pull-left">
+
+                    </a>
+                    <div class="media-body ">
+                      <small class="pull-right text-navy">5h ago</small>
+                      <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                      <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                    </div>
+                  </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <div class="dropdown-messages-box">
+                    <a href="profile.html" class="pull-left">
+
+                    </a>
+                    <div class="media-body ">
+                      <small class="pull-right">23h ago</small>
+                      <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                      <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                    </div>
+                  </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <div class="text-center link-block">
+                    <a href="mailbox.html">
+                      <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+              </a>
+              <ul class="dropdown-menu dropdown-alerts">
+                <li>
+                  <a href="mailbox.html">
+                    <div>
+                      <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                      <span class="pull-right text-muted small">4 minutes ago</span>
+                    </div>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="profile.html">
+                    <div>
+                      <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                      <span class="pull-right text-muted small">12 minutes ago</span>
+                    </div>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="grid_options.html">
+                    <div>
+                      <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                      <span class="pull-right text-muted small">4 minutes ago</span>
+                    </div>
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <div class="text-center link-block">
+                    <a href="notifications.html">
+                      <strong>See All Alerts</strong>
+                      <i class="fa fa-angle-right"></i>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+
+
+            <li>
+              <a href="login.html">
+                <i class="fa fa-sign-out"></i> Log out
+              </a>
+            </li>
+            <li>
+              <a class="right-sidebar-toggle">
+                <i class="fa fa-tasks"></i>
+              </a>
+            </li>
+          </ul>
+
+        </nav>
+      </div>
+
+
+      <div class="fh-no-breadcrumb">
+        <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-content">
+              <div class="table-responsive">
+                <div>
+                  <label>每页显示</label>
+                  <select id="syslog_pagesize_select">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                    </select>
+                </div>
+                <table class="table table-striped table-bordered table-hover dtr-inline">
+                  <thead>
+                  <tr role="row">
+                    <th>时间</th>
+                    <th>设备</th>
+                    <th>等级</th>
+                    <th>主机名</th>
+                    <th>消息</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% if (names.length) { %>
+                  <% names.forEach(function(name){ %>
+                  <tr>
+                    <td><%= name.timestamp %></td>
+                    <td><%= name.address %></td>
+                    <td><%= name.severity %></td>
+                    <td><%= name.priority %></td>
+                    <td><%= name.message %></td>
+                  </tr>
+                  <% }) %>
+                  <% } %>
+                  </tbody>
+                </table>
+                <div>
+                  <ul class="pagination">
+                    <li class="" id="">
+                      <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">Previous</a>
+                    </li>
+                    <li class="paginate_button active">
+                      <a href="#" >1</a>
+                    </li>
+                    <li class="paginate_button next" id="DataTables_Table_0_next">
+                      <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">Next</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div id="page_level">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="footer">
+        <div class="pull-right">
+          <strong>IT资产管理</strong>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+    <form id="postForm" method="POST">
+      <input type="hidden" name="_method" value="POST"/>
+    </form>
+  </div>
+</script>
+
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/plugins/jqGrid/i18n/grid.locale-cn.js"></script>
+<script src="js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<script src="js/plugins/toastr/toastr.min.js"></script>
+<script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+<script src="js/plugins/validate/jquery.validate.min.js"></script>
+<script src="js/plugins/validate/jquery.validate.additional.js"></script>
+<script src="js/plugins/validate/i18n/messages_zh.js"></script>
+
+
+<script src="js/inspinia.js"></script>
+<script src="js/inspinia_ext.js"></script>
+<script src="js/app.js"></script>
+
+
+<script src="js/plugins/footable/footable.all.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="js/ejs.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ejs.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/syslogs.js" type="text/javascript" charset="utf-8"></script>
+
+</html>
