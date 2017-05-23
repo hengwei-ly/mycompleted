@@ -1,0 +1,24 @@
+
+
+#wrapper .brand {
+    position: relative;
+    left: 40px;
+    top: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+.ibox-content > form {
+    margin-top: 10px;
+}
+
+#page-wrapper > .alert {
+    margin-top: 2px;
+    margin-bottom: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#page-wrapper > .alert + .fh-no-breadcrumb {
+    height: calc(100% - 155px);
+}
