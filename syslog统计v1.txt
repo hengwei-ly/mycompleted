@@ -1,0 +1,113 @@
+测试程序  D:\myWorkSpace\dev\src\test\test.go
+
+
+一、近一段时间内产生的系统日志数目，做出数量--时间的syslogs分布图
+原文中是60分钟内的数据,每5秒分一组，共720组，我也不知道日志生成的频率,按720组分的话有下面几种选择：
+(1).12小时  每一分钟分一组
+	
+	query := bleve.NewMatchAllQuery()
+	searchRequest := bleve.NewSearchRequest(query)
+	endtime := time.Unix(time.Now().Unix()+60*60*8, time.Now().Unix()+60*60*8*1000)
+	for i := 1; i <= 720; i++ {
+		extime1 := endtime.Unix() - 60*int64(i)*10
+		extime2 := endtime.Unix() - 60*int64(i-1)*10
+		start := time.Unix(extime1, extime1*1000)
+		end := time.Unix(extime2, extime2*1000)
+		facet := bleve.NewFacetRequest("reception", 1)
+		facet.AddDateTimeRange("date"+strconv.Itoa(i), start, end)
+		searchRequest.AddFacet("dateRange"+strconv.Itoa(i), facet)
+	}
+
+	searchRequest.Size = 100000
+	searchResults, err := index.Search(searchRequest)
+	for k, v := range searchResults.Facets {
+		fmt.Println(k, ":", v.Total)
+	}
+	
+(2).6小时  30秒分一组
+(3).1小时  5秒一组
+
+
+二、获取时间段总数、严重等级日志 --> severity=0 、 中级等级事件 --> severity<4 & severity>0
+  获取时间段总数（按12小时算）:
+	endtime := time.Now()
+	starttime := time.Unix(endtime.Unix() - 60*60*12, 0)
+	query := bleve.NewDateRangeQuery(starttime,endtime)
+	searchRequest := bleve.NewSearchRequest(query)
+(1).全部
+	facet1 := bleve.NewFacetRequest("severity", 1)
+	var min1 = float64(0)
+	var max1 = float64(8)
+	facet1.AddNumericRange("servity1", &min1, &max1)
+	searchRequest.AddFacet("severity-all", facet1)
+(2).severity为0
+	facet2 := bleve.NewFacetRequest("severity", 1)
+	min2 := float64(0)
+	max2 := float64(1)
+	facet2.AddNumericRange("servity2", &min2, &max2)
+	searchRequest.AddFacet("severity0", facet2)
+(3).severity为1-3
+	facet3 := bleve.NewFacetRequest("severity", 1)
+	min3 := float64(1)
+	max3 := float64(4)
+	facet3.AddNumericRange("servity3", &min3, &max3)
+	searchRequest.AddFacet("severity1", facet3)
+
+	searchRequest.Size = 10000
+	searchResults, err := index.Search(searchRequest)
+	return searchResults.Facets
+
+
+三、类型(facility) 和级别 (severity)分布图，这里分析的是所有数据，标题改为：消息类型  级别分布
+  这里按照所有日志的情况进行统计：
+	query := bleve.NewMatchAllQuery()
+	searchRequest := bleve.NewSearchRequest(query)
+
+	for i := 0; i < 8; i++ {
+		facet := bleve.NewFacetRequest("severity", 1)
+		var min = float64(i)
+		var max = float64(i + 1)
+		facet.AddNumericRange("servity", &min, &max)
+		searchRequest.AddFacet("severity"+strconv.Itoa(i), facet)
+	}
+
+	for i := 0; i <= 15; i++ {
+		facet := bleve.NewFacetRequest("facility", 1)
+		var min = float64(i)
+		var max = float64(i + 1)
+		facet.AddNumericRange("facility", &min, &max)
+		searchRequest.AddFacet("facility"+strconv.Itoa(i), facet)
+	}
+	facet := bleve.NewFacetRequest("facility", 1)
+	var min = float64(16)
+	var max = float64(24)
+	facet.AddNumericRange("facility", &min, &max)
+	searchRequest.AddFacet("facility16", facet)
+
+	searchRequest.Size = 10000
+	searchResults, err := index.Search(searchRequest)
+	return searchResults.Facets
+
+四、IP地址统计
+方案：分别用已有的IP地址作为查询条件查询出结果
+所有的address由原接口获得，返回一个address数组
+	adds := []string{"192.168.1.133", "192.168.1.134", "192.168.1.135", "192.168.1.136"}
+
+	result := map[string]uint64{}
+	for i := 0; i < len(adds); i++ {
+		query := bleve.NewTermQuery(adds[i])
+		searchRequest := bleve.NewSearchRequest(query)
+		searchResults, _ := index.Search(searchRequest)
+		result[adds[i]] = searchResults.Total
+	}
+	return result
+
+五、日志列表
+这个就是我的syslog主页
+
+
+
+
+
+
+
